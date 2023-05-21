@@ -1,0 +1,9 @@
+I used Agrregation type of association and face problem on oneToMany and ManyToOne mapping. I spent Most of the Time Resolving the Error. Today I learnt creating custom serilizable class for json object.
+
+task to do next==> correct the logic for update student 
+
+learning=> creating list options 
+
+frontend completed things => only student registration page with subject...
+incomplete thing's => seprate page for subject and it's crud operation
+				student update retrivel and deletion logic.
