@@ -1,0 +1,70 @@
+package com.sandeep.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.sandeep.entity.Student;
+import com.sandeep.entity.Subject;
+import com.sandeep.service.StudentService;
+
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+
+    private final StudentService studentService;
+
+    @Autowired
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
+        Student savedStudent = studentService.saveStudent(student);
+        return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable("id") Long id) {
+        Student student = studentService.getStudentById(id);
+        if (student != null) {
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> students = studentService.getAllStudents();
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable("id") Long id, @RequestBody Student updatedStudent) {
+        Student student = studentService.updateStudent(id, updatedStudent);
+        if (student != null) {
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") Long id) {
+        studentService.deleteStudent(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{studentId}/subjects")
+    public ResponseEntity<List<Subject>> getStudentSubjects(@PathVariable("studentId") Long studentId) {
+        List<Subject> subjects = studentService.getStudentSubjects(studentId);
+        if (subjects != null) {
+            return new ResponseEntity<>(subjects, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+

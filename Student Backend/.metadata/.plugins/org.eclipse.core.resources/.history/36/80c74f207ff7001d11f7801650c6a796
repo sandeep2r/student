@@ -1,0 +1,69 @@
+package com.sandeep.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Entity
+public class Subject {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @NotEmpty(message = "Name is required")
+    private String name;
+    
+    @NotEmpty(message = "Code is required")
+    private String code;
+    
+    @NotNull(message = "Theory or practical is required")
+    private Strings theoryOrPractical;
+    
+    // Constructors, getters, and setters
+    
+    public Subject() {
+    }
+
+    public Subject(String name, String code, Strings theoryOrPractical) {
+        this.name = name;
+        this.code = code;
+        this.theoryOrPractical = theoryOrPractical;
+    }
+    
+    // Getters and setters
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Boolean getTheoryOrPractical() {
+        return theoryOrPractical;
+    }
+
+    public void setTheoryOrPractical(Boolean theoryOrPractical) {
+        this.theoryOrPractical = theoryOrPractical;
+    }
+}

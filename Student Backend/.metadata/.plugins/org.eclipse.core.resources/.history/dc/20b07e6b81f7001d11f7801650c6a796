@@ -1,0 +1,16 @@
+package com.sandeep.service;
+
+import java.util.List;
+
+import com.sandeep.entity.Student;
+import com.sandeep.entity.Subject;
+
+public interface StudentService {
+    Student saveStudent(Student student);
+    Student getStudentById(Long id);
+    List<Student> getAllStudents();
+    void deleteStudent(Long id);
+    List<Subject> getStudentSubjects(Long studentId);
+    Student updateStudent(Long id, Student updatedStudent);
+    
+}

@@ -1,0 +1,5 @@
+package com.sandeep.repository;
+
+public class SubjectRepository {
+
+}

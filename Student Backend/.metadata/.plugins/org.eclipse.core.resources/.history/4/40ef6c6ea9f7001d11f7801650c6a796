@@ -1,0 +1,125 @@
+package com.sandeep.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+@Entity
+@Table(name = "student")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    
+    @NotEmpty(message = "Name is required")
+    private String name;
+    
+    @NotNull(message = "Date of birth is required")
+    private String dateOfBirth;
+    
+    @NotEmpty(message = "Address is required")
+    private String address;
+    
+    @Pattern(regexp = "\\d{10}", message = "Mobile number should be 10 digits")
+    private String mobile;
+    
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "student")
+    private List<Subject> subjects = new ArrayList<>();
+
+
+	public Student() {
+		super();
+	}
+
+
+	public Student(Long id, @NotEmpty(message = "Name is required") String name,
+			@NotNull(message = "Date of birth is required") String dateOfBirth,
+			@NotEmpty(message = "Address is required") String address,
+			@Pattern(regexp = "\\d{10}", message = "Mobile number should be 10 digits") String mobile,
+			List<Subject> subjects) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.dateOfBirth = dateOfBirth;
+		this.address = address;
+		this.mobile = mobile;
+		this.subjects = subjects;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getMobile() {
+		return mobile;
+	}
+
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
+
+	
+
+    
+}

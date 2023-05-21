@@ -1,0 +1,5 @@
+package com.sandeep.entity;
+
+public class Student {
+
+}

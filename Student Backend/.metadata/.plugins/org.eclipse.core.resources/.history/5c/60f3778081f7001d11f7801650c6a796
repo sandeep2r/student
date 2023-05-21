@@ -1,0 +1,69 @@
+package com.sandeep.serviceimpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sandeep.entity.Student;
+import com.sandeep.entity.Subject;
+import com.sandeep.repository.SubjectRepository;
+import com.sandeep.service.SubjectService;
+
+import java.util.List;
+
+@Service
+public class SubjectServiceImpl implements SubjectService {
+
+    private final SubjectRepository subjectRepository;
+
+    @Autowired
+    public SubjectServiceImpl(SubjectRepository subjectRepository) {
+        this.subjectRepository = subjectRepository;
+    }
+
+    @Override
+    public Subject saveSubject(Subject subject) {
+        return subjectRepository.save(subject);
+    }
+
+    @Override
+    public Subject getSubjectById(Long id) {
+        return subjectRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Subject> getAllSubjects() {
+        return subjectRepository.findAll();
+    }
+
+    @Override
+    public void deleteSubject(Long id) {
+        subjectRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Student> getSubjectStudents(Long subjectId) {
+        Subject subject = subjectRepository.findById(subjectId).orElse(null);
+        if (subject != null) {
+            return subject.getStudents();
+        }
+        return null;
+    }
+
+    @Override
+    public Student updateStudent(Long id, Student student) {
+        Subject subject = subjectRepository.findById(id).orElse(null);
+        if (subject != null) {
+            List<Student> students = subject.getStudents();
+            for (Student existingStudent : students) {
+                if (existingStudent.getId().equals(student.getId())) {
+                    existingStudent.setName(student.getName());
+                    existingStudent.setDateOfBirth(student.getDateOfBirth());
+                    existingStudent.setAddress(student.getAddress());
+                    existingStudent.setMobile(student.getMobile());
+                    return existingStudent;
+                }
+            }
+        }
+        return null;
+    }
+}
